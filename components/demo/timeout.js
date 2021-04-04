@@ -6,7 +6,7 @@ import {
 
 const delay = 5;
 
-export function TimerOnce() {
+export default function TimeOutDemo() {
   const [show, setShow] = useState(false);
 
   useEffect(

@@ -29,47 +29,53 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import {LineChart} from 'react-native-charts-wrapper';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { AutoCounter } from './components/autocounter'
 import { BubbleSort } from './components/bubblesort'
-import { TimerOnce } from './components/timeronce'
 import { TimerWrap } from './components/timerwrap'
+import { Barchart } from './components/barchart'
+import { DemosScreen, demoScreensList } from './screens/demo/demoscreens'
+import { Day01Screen } from './screens/day/day01'
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Advent Of Code</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
+    <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Advent Of Code</Text>
+        <Button
+          title="Go to Day 01"
+          onPress={() => navigation.navigate('Day 01')}
+        />
+        <Button
+          title="Function Demos"
+          onPress={() => navigation.navigate('DemosScreen')}
+        />
+      </View>     
     </View>
   );
 }
 
-function DetailsScreen() {
-  console.log("111")
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      { /*<Text><AutoCounter seconds={50} /></Text>*/ }
-      <Text><BubbleSort array={[1, 4, 3, 5, 2, 7]}/></Text>
-      { /*<Text><TimerOnce array={[1, 4, 3, 5, 2, 7]}/></Text>*/ }
-      <Text><TimerWrap array={[1, 4, 3, 5, 2, 7]}/></Text>
-    </View>
-  );
-}
+
 
 const Stack = createStackNavigator();
 
 const App : () => React$Node = () => {
+  console.log("app001", demoScreensList)
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }}/>
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'React Native Demo' }}/>
+        <Stack.Screen name="Day 01" component={Day01Screen} />
+        <Stack.Screen name="DemosScreen" component={DemosScreen} />
+        {Object.entries({
+            ...demoScreensList,
+          }).map(([name, component]) => (
+            <Stack.Screen key={name} name={name} component={component} />
+          ))}
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -168,6 +174,13 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF'
+  },
+  chart: {
+    flex: 1
+  }
 });
 
 export default App;

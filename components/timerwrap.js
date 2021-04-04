@@ -58,5 +58,5 @@ function Child({ array, counter, currentTimer }) {
     clearInterval(currentTimer);
   }, [counter, currentTimer]);
 
-  return <Text>{bubbleState}</Text>;
+  return <Text>s: {array}</Text>;
 }

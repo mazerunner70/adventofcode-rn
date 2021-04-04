@@ -72,7 +72,7 @@ function bubbleSortStep(bubbleState: Any): Partial<BubbleState> {
 const BubbleSort = ( {array} ) => {
     console.log("120", "entry")
     const [bubbleState, setBubbleState] = useState(null);
-
+    const [counter, setCounter] = useState(0);
     const timer = useRef(null);
     const handleTimer = () => {
         console.log("124", bubbleState)
@@ -92,8 +92,8 @@ const BubbleSort = ( {array} ) => {
       // component re-renders
       timer.current = setInterval(() => {
         console.log("129", bubbleState)
-        // setBubbleState((b)=> bubbleSortStep(b))
         setBubbleState((b)=> {
+            setCounter((v) => v + 1)
             console.log("130", b)
             if (b.done) {
                 clearInterval(timer.current);
@@ -109,9 +109,11 @@ const BubbleSort = ( {array} ) => {
       // add timeLeft as a dependency to re-rerun the effect
       // when we update it
     }, []);
+    console.log("121", bubbleState)
+    console.log("121", typeof(bubbleState))
   
     return (
-      <Text>{bubbleState?.done}</Text>
+        <Text>Interval is working, counter: {counter} {bubbleState?.array}</Text>
     );
   };
 
